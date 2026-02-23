@@ -1,0 +1,60 @@
+{
+  "$schema": "https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/schemas/extension.json",
+  "name": "google-search",
+  "title": "Google Search",
+  "description": "Google search with autosuggestions",
+  "icon": "assets/command-icon.png",
+  "author": "shrut-sureja",
+  "contributors": [],
+  "pastContributors": [],
+  "categories": ["Web"],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "index",
+      "title": "Google Search",
+      "description": "Google search with autosuggestions",
+      "mode": "view"
+    },
+    {
+      "name": "searchSelectText",
+      "title": "Google Search Selected Text",
+      "description": "Google search with selected text",
+      "mode": "no-view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "rememberSearchHistory",
+      "title": "Remember Search History",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "label": "Remember Search History",
+      "description": "Enable this checkbox to locally store Google search history."
+    },
+    {
+      "name": "useClipboardFallback",
+      "title": "Use Clipboard Fallback",
+      "type": "checkbox",
+      "required": false,
+      "default": false,
+      "label": "Use Clipboard Fallback",
+      "description": "When no text is selected, fall back to using clipboard content for search."
+    }
+  ],
+  "scripts": {
+    "build": "vici build",
+    "dev": "vici develop",
+    "lint": "vici lint"
+  },
+  "dependencies": {
+    "@vicinae/api": "^0.16.14",
+    "iconv-lite": "^0.7.0",
+    "nanoid": "^5.1.6",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
