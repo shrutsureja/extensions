@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/schemas/extension.json",
+  "name": "zed-recent-projects",
+  "title": "Zed Recent Projects",
+  "description": "Search and open recent Zed editor projects directly from Vicinae",
+  "license": "MIT",
+  "author": "shrut-sureja",
+  "contributors": [],
+  "pastContributors": [],
+  "icon": "assets/icon.png",
+  "categories": ["Developer Tools"],
+  "commands": [
+    {
+      "name": "search",
+      "title": "Search Recent Projects",
+      "subtitle": "Zed",
+      "description": "Search and open recent Zed projects",
+      "mode": "view"
+    },
+    {
+      "name": "open",
+      "title": "Open with Zed",
+      "subtitle": "Zed",
+      "description": "Open the currently selected file or folder in Zed",
+      "mode": "no-view"
+    },
+    {
+      "name": "open-new-window",
+      "title": "Open New Window",
+      "subtitle": "Zed",
+      "description": "Open a new Zed window",
+      "mode": "no-view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "terminalApp",
+      "title": "Terminal Application",
+      "description": "The terminal application to use for SSH projects",
+      "type": "dropdown",
+      "required": false,
+      "default": "xterm",
+      "data": [
+        { "title": "xterm", "value": "xterm" },
+        { "title": "gnome-terminal", "value": "gnome-terminal" },
+        { "title": "konsole", "value": "konsole" },
+        { "title": "xfce4-terminal", "value": "xfce4-terminal" },
+        { "title": "alacritty", "value": "alacritty" },
+        { "title": "kitty", "value": "kitty" }
+      ]
+    }
+  ],
+  "scripts": {
+    "build": "vici build",
+    "dev": "vici develop",
+    "lint": "vici lint"
+  },
+  "dependencies": {
+    "@vicinae/api": "^0.16.14"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
