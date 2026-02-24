@@ -3,16 +3,14 @@ import { getIcon } from "./utils/resultUtils";
 import { useSearch } from "./utils/useSearch";
 
 export default function Command() {
-  const { isLoading, results, search, searchText, addHistory, deleteAllHistory, deleteHistoryItem } =
+  const { isLoading, results, search, addHistory, deleteAllHistory, deleteHistoryItem } =
     useSearch();
 
   return (
     <List
       isLoading={isLoading}
-      searchText={searchText}
       onSearchTextChange={search}
-      searchBarPlaceholder="Search Google or enter a URL..."
-    >
+      searchBarPlaceholder="Search Google or enter a URL...">
       <List.Section title="Results" subtitle={results.length + ""}>
         {results.map((item) => (
           <List.Item

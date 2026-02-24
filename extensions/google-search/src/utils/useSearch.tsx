@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { getAutoSearchResults, getSearchHistory, getStaticResult } from "./handleResults";
 import { SearchResult, HISTORY_KEY, Preferences } from "./types";
 
-export function useSearch() {
+export function useSearch(initialText?: string) {
   const { rememberSearchHistory } = getPreferenceValues<Preferences>();
   const [isLoading, setIsLoading] = useState(true);
   const [history, setHistory] = useState<SearchResult[]>([]);
@@ -11,7 +11,7 @@ export function useSearch() {
   const [historyResults, setHistoryResults] = useState<SearchResult[]>([]);
   const [autoResults, setAutoResults] = useState<SearchResult[]>([]);
   const [results, setResults] = useState<SearchResult[]>([]);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(initialText || "");
   const cancelRef = useRef<AbortController | null>(null);
 
   useEffect(() => {

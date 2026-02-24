@@ -13,16 +13,46 @@ export async function getSearchHistory(): Promise<SearchResult[]> {
   return items;
 }
 
+// Matches URLs with explicit scheme, bare domains with TLD, www prefix, localhost, or IP addresses.
+// Does NOT match plain search terms like "how to cook pasta".
+export function isUrl(text: string): boolean {
+  if (!text) return false;
+  // Explicit scheme
+  if (/^https?:\/\//i.test(text)) return true;
+  // localhost with optional port
+  if (/^localhost(:\d+)?/i.test(text)) return true;
+  // IP address (v4)
+  if (/^\d{1,3}(\.\d{1,3}){3}(:\d+)?/.test(text)) return true;
+  // Bare domain: must have a dot, no spaces, valid TLD (2+ chars), no spaces
+  const bareDomain = /^(www\.)?[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?(\/[^\s]*)?\.?$/;
+  return bareDomain.test(text) && !text.includes(" ");
+}
+
+// Normalise a bare URL input to ensure it has a scheme for opening in browser.
+export function normalizeUrl(text: string): string {
+  if (/^https?:\/\//i.test(text)) return text;
+  return `https://${text}`;
+}
+
 export function getStaticResult(searchText: string): SearchResult[] {
   if (!searchText) return [];
-  return [
-    {
+  const results: SearchResult[] = [];
+  if (isUrl(searchText)) {
+    results.push({
       id: nanoid(),
       query: searchText,
-      description: `Search Google for '${searchText}'`,
-      url: `https://www.google.com/search?q=${encodeURIComponent(searchText)}`,
-    },
-  ];
+      description: `Open '${normalizeUrl(searchText)}'`,
+      url: normalizeUrl(searchText),
+      isNavigation: true,
+    });
+  }
+  results.push({
+    id: nanoid(),
+    query: searchText,
+    description: `Search Google for '${searchText}'`,
+    url: `https://www.google.com/search?q=${encodeURIComponent(searchText)}`,
+  });
+  return results;
 }
 
 export async function getAutoSearchResults(
